@@ -1,2 +1,8 @@
 server:
   port: 8308
+
+
+virus:
+  info:
+    province: Hubei
+    count: 5471
