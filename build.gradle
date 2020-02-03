@@ -8,6 +8,7 @@ group = 'com.demo'
 version = '1.0.0'
 sourceCompatibility = '1.8'
 
+
 repositories {
 	/**先从本地仓库查找jar包*/
 	mavenLocal()
@@ -33,6 +34,13 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
 }
 
+
+
 test {
 	useJUnitPlatform()
+}
+
+
+tasks.withType(JavaCompile) {
+	options.encoding = "UTF-8"
 }
