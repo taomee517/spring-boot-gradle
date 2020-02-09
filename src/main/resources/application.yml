@@ -2,6 +2,16 @@ spring:
   profiles:
     active: dev
 
+  http:
+    encoding:
+      enable: ture
+      charset: utf-8
+
+  mvc:
+    view:
+      prefix: /WEB-INF/page/
+      suffix: .jsp
+
 virus:
   info:
     province: Hubei
