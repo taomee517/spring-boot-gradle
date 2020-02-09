@@ -1,6 +1,6 @@
-server:
-  port: 8308
-
+spring:
+  profiles:
+    active: dev
 
 virus:
   info:
