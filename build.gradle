@@ -2,6 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.2.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+
+	//gradle提供的mybatis generator插件
+	id "com.arenagod.gradle.MybatisGenerator" version "1.4"
 }
 
 group = 'com.demo'
@@ -27,6 +30,8 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 	/**lombok*/
 	compileOnly 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
@@ -37,8 +42,34 @@ dependencies {
 	implementation 'javax.servlet:jstl'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	/**kafka*/
+
+	/**mysql*/
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.48'
+
+	/**druid*/
+	compile group: 'com.alibaba', name: 'druid-spring-boot-starter', version: '1.1.21'
+
+	/**mybatis*/
+	compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2'
+
+	/**mybatis-generator core 包*/
+	compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version:'1.4.0'
+
 }
 
+
+
+configurations {
+	mybatisGenerator
+}
+
+// mybatis-generator.xml 配置路径
+mybatisGenerator {
+	verbose = true
+	configFile = 'src/main/resources/mybatis/mybatis-generator.xml'
+}
 
 
 test {

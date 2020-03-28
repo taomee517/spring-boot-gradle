@@ -1,4 +1,4 @@
-package com.demo.gradle.entity;
+package com.demo.gradle.entity.base;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

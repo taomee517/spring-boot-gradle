@@ -1,6 +1,6 @@
 package com.demo.gradle.controller;
 
-import com.demo.gradle.entity.Info;
+import com.demo.gradle.entity.base.Info;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
