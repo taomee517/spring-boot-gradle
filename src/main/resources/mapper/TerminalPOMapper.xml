@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.gradle.entity.dao.TerminalPOMapper">
+  <resultMap id="BaseResultMap" type="com.demo.gradle.entity.po.TerminalPO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="imei" jdbcType="VARCHAR" property="imei" />
+    <result column="client_type" jdbcType="INTEGER" property="clientType" />
+    <result column="vehicle_id" jdbcType="INTEGER" property="vehicleId" />
+    <result column="level_code" jdbcType="VARCHAR" property="levelCode" />
+    <result column="service_end_time" jdbcType="TIMESTAMP" property="serviceEndTime" />
+    <result column="terminal_status" jdbcType="INTEGER" property="terminalStatus" />
+    <result column="upd_status" jdbcType="BIT" property="updStatus" />
+    <result column="online" jdbcType="BIT" property="online" />
+    <result column="msisdn" jdbcType="VARCHAR" property="msisdn" />
+    <result column="iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="first_msg_time" jdbcType="TIMESTAMP" property="firstMsgTime" />
+    <result column="last_msg_time" jdbcType="TIMESTAMP" property="lastMsgTime" />
+    <result column="bar_code" jdbcType="VARCHAR" property="barCode" />
+    <result column="crt_time" jdbcType="TIMESTAMP" property="crtTime" />
+    <result column="upd_time" jdbcType="TIMESTAMP" property="updTime" />
+    <result column="crt_uid" jdbcType="INTEGER" property="crtUid" />
+    <result column="upd_uid" jdbcType="INTEGER" property="updUid" />
+    <result column="cfg_name" jdbcType="VARCHAR" property="cfgName" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="hard_version" jdbcType="VARCHAR" property="hardVersion" />
+    <result column="partition_format" jdbcType="VARCHAR" property="partitionFormat" />
+    <result column="soft_name" jdbcType="VARCHAR" property="softName" />
+    <result column="compile_type" jdbcType="VARCHAR" property="compileType" />
+    <result column="soft_version" jdbcType="VARCHAR" property="softVersion" />
+    <result column="wireless" jdbcType="BIT" property="wireless" />
+    <result column="sr_levelcode" jdbcType="VARCHAR" property="srLevelcode" />
+    <result column="model_id" jdbcType="INTEGER" property="modelId" />
+    <result column="state_time" jdbcType="TIMESTAMP" property="stateTime" />
+    <result column="driving_cfg_power" jdbcType="BIT" property="drivingCfgPower" />
+    <result column="pin_card" jdbcType="TINYINT" property="pinCard" />
+    <result column="pin_card_time" jdbcType="TIMESTAMP" property="pinCardTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.demo.gradle.entity.po.TerminalPOWithBLOBs">
+    <result column="install_url" jdbcType="LONGVARCHAR" property="installUrl" />
+    <result column="vin_url" jdbcType="LONGVARCHAR" property="vinUrl" />
+  </resultMap>
+
+  <resultMap id="BaseVOMap" type="com.demo.gradle.entity.vo.TerminalVO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="imei" jdbcType="VARCHAR" property="imei" />
+    <result column="client_type" jdbcType="INTEGER" property="clientType" />
+    <result column="vehicle_id" jdbcType="INTEGER" property="vehicleId" />
+    <result column="level_code" jdbcType="VARCHAR" property="levelCode" />
+    <result column="terminal_status" jdbcType="INTEGER" property="terminalStatus" />
+    <result column="upd_status" jdbcType="BIT" property="updStatus" />
+    <result column="online" jdbcType="BIT" property="online" />
+    <result column="iccid" jdbcType="VARCHAR" property="iccid" />
+    <result column="last_msg_time" jdbcType="TIMESTAMP" property="lastMsgTime" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="hard_version" jdbcType="VARCHAR" property="hardVersion" />
+    <result column="soft_name" jdbcType="VARCHAR" property="softName" />
+    <result column="soft_version" jdbcType="VARCHAR" property="softVersion" />
+    <result column="model_id" jdbcType="INTEGER" property="modelId" />
+    <result column="state_time" jdbcType="TIMESTAMP" property="stateTime" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, imei, client_type, vehicle_id, level_code, service_end_time, terminal_status, 
+    upd_status, online, msisdn, iccid, first_msg_time, last_msg_time, bar_code, crt_time, 
+    upd_time, crt_uid, upd_uid, cfg_name, remark, product_code, product_name, hard_version, 
+    partition_format, soft_name, compile_type, soft_version, wireless, sr_levelcode, 
+    model_id, state_time, driving_cfg_power, pin_card, pin_card_time
+  </sql>
+  <sql id="Base_VO_List">
+    id, imei, client_type, vehicle_id, level_code, terminal_status,
+    upd_status, online, iccid, last_msg_time, product_code, product_name, hard_version,
+    soft_name, soft_version, model_id, state_time
+  </sql>
+
+  <sql id="Blob_Column_List">
+    install_url, vin_url
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.demo.gradle.entity.po.TerminalPOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.demo.gradle.entity.po.TerminalPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_terminal
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_terminal
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.demo.gradle.entity.po.TerminalPOExample">
+    delete from tb_terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.demo.gradle.entity.po.TerminalPOWithBLOBs">
+    insert into tb_terminal (id, imei, client_type, 
+      vehicle_id, level_code, service_end_time, 
+      terminal_status, upd_status, online, 
+      msisdn, iccid, first_msg_time, 
+      last_msg_time, bar_code, crt_time, 
+      upd_time, crt_uid, upd_uid, 
+      cfg_name, remark, product_code, 
+      product_name, hard_version, partition_format, 
+      soft_name, compile_type, soft_version, 
+      wireless, sr_levelcode, model_id, 
+      state_time, driving_cfg_power, pin_card, 
+      pin_card_time, install_url, vin_url
+      )
+    values (#{id,jdbcType=INTEGER}, #{imei,jdbcType=VARCHAR}, #{clientType,jdbcType=INTEGER}, 
+      #{vehicleId,jdbcType=INTEGER}, #{levelCode,jdbcType=VARCHAR}, #{serviceEndTime,jdbcType=TIMESTAMP}, 
+      #{terminalStatus,jdbcType=INTEGER}, #{updStatus,jdbcType=BIT}, #{online,jdbcType=BIT}, 
+      #{msisdn,jdbcType=VARCHAR}, #{iccid,jdbcType=VARCHAR}, #{firstMsgTime,jdbcType=TIMESTAMP}, 
+      #{lastMsgTime,jdbcType=TIMESTAMP}, #{barCode,jdbcType=VARCHAR}, #{crtTime,jdbcType=TIMESTAMP}, 
+      #{updTime,jdbcType=TIMESTAMP}, #{crtUid,jdbcType=INTEGER}, #{updUid,jdbcType=INTEGER}, 
+      #{cfgName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR}, 
+      #{productName,jdbcType=VARCHAR}, #{hardVersion,jdbcType=VARCHAR}, #{partitionFormat,jdbcType=VARCHAR}, 
+      #{softName,jdbcType=VARCHAR}, #{compileType,jdbcType=VARCHAR}, #{softVersion,jdbcType=VARCHAR}, 
+      #{wireless,jdbcType=BIT}, #{srLevelcode,jdbcType=VARCHAR}, #{modelId,jdbcType=INTEGER}, 
+      #{stateTime,jdbcType=TIMESTAMP}, #{drivingCfgPower,jdbcType=BIT}, #{pinCard,jdbcType=TINYINT}, 
+      #{pinCardTime,jdbcType=TIMESTAMP}, #{installUrl,jdbcType=LONGVARCHAR}, #{vinUrl,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.gradle.entity.po.TerminalPOWithBLOBs">
+    insert into tb_terminal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="imei != null">
+        imei,
+      </if>
+      <if test="clientType != null">
+        client_type,
+      </if>
+      <if test="vehicleId != null">
+        vehicle_id,
+      </if>
+      <if test="levelCode != null">
+        level_code,
+      </if>
+      <if test="serviceEndTime != null">
+        service_end_time,
+      </if>
+      <if test="terminalStatus != null">
+        terminal_status,
+      </if>
+      <if test="updStatus != null">
+        upd_status,
+      </if>
+      <if test="online != null">
+        online,
+      </if>
+      <if test="msisdn != null">
+        msisdn,
+      </if>
+      <if test="iccid != null">
+        iccid,
+      </if>
+      <if test="firstMsgTime != null">
+        first_msg_time,
+      </if>
+      <if test="lastMsgTime != null">
+        last_msg_time,
+      </if>
+      <if test="barCode != null">
+        bar_code,
+      </if>
+      <if test="crtTime != null">
+        crt_time,
+      </if>
+      <if test="updTime != null">
+        upd_time,
+      </if>
+      <if test="crtUid != null">
+        crt_uid,
+      </if>
+      <if test="updUid != null">
+        upd_uid,
+      </if>
+      <if test="cfgName != null">
+        cfg_name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="hardVersion != null">
+        hard_version,
+      </if>
+      <if test="partitionFormat != null">
+        partition_format,
+      </if>
+      <if test="softName != null">
+        soft_name,
+      </if>
+      <if test="compileType != null">
+        compile_type,
+      </if>
+      <if test="softVersion != null">
+        soft_version,
+      </if>
+      <if test="wireless != null">
+        wireless,
+      </if>
+      <if test="srLevelcode != null">
+        sr_levelcode,
+      </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
+      <if test="stateTime != null">
+        state_time,
+      </if>
+      <if test="drivingCfgPower != null">
+        driving_cfg_power,
+      </if>
+      <if test="pinCard != null">
+        pin_card,
+      </if>
+      <if test="pinCardTime != null">
+        pin_card_time,
+      </if>
+      <if test="installUrl != null">
+        install_url,
+      </if>
+      <if test="vinUrl != null">
+        vin_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="imei != null">
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null">
+        #{clientType,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleId != null">
+        #{vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="levelCode != null">
+        #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEndTime != null">
+        #{serviceEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminalStatus != null">
+        #{terminalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updStatus != null">
+        #{updStatus,jdbcType=BIT},
+      </if>
+      <if test="online != null">
+        #{online,jdbcType=BIT},
+      </if>
+      <if test="msisdn != null">
+        #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="firstMsgTime != null">
+        #{firstMsgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastMsgTime != null">
+        #{lastMsgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="barCode != null">
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updTime != null">
+        #{updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUid != null">
+        #{crtUid,jdbcType=INTEGER},
+      </if>
+      <if test="updUid != null">
+        #{updUid,jdbcType=INTEGER},
+      </if>
+      <if test="cfgName != null">
+        #{cfgName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="hardVersion != null">
+        #{hardVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionFormat != null">
+        #{partitionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="softName != null">
+        #{softName,jdbcType=VARCHAR},
+      </if>
+      <if test="compileType != null">
+        #{compileType,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersion != null">
+        #{softVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="wireless != null">
+        #{wireless,jdbcType=BIT},
+      </if>
+      <if test="srLevelcode != null">
+        #{srLevelcode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null">
+        #{modelId,jdbcType=INTEGER},
+      </if>
+      <if test="stateTime != null">
+        #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drivingCfgPower != null">
+        #{drivingCfgPower,jdbcType=BIT},
+      </if>
+      <if test="pinCard != null">
+        #{pinCard,jdbcType=TINYINT},
+      </if>
+      <if test="pinCardTime != null">
+        #{pinCardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="installUrl != null">
+        #{installUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vinUrl != null">
+        #{vinUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.demo.gradle.entity.po.TerminalPOExample" resultType="java.lang.Long">
+    select count(*) from tb_terminal
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_terminal
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.imei != null">
+        imei = #{record.imei,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientType != null">
+        client_type = #{record.clientType,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicleId != null">
+        vehicle_id = #{record.vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.levelCode != null">
+        level_code = #{record.levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceEndTime != null">
+        service_end_time = #{record.serviceEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.terminalStatus != null">
+        terminal_status = #{record.terminalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.updStatus != null">
+        upd_status = #{record.updStatus,jdbcType=BIT},
+      </if>
+      <if test="record.online != null">
+        online = #{record.online,jdbcType=BIT},
+      </if>
+      <if test="record.msisdn != null">
+        msisdn = #{record.msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iccid != null">
+        iccid = #{record.iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstMsgTime != null">
+        first_msg_time = #{record.firstMsgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastMsgTime != null">
+        last_msg_time = #{record.lastMsgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.barCode != null">
+        bar_code = #{record.barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.crtTime != null">
+        crt_time = #{record.crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updTime != null">
+        upd_time = #{record.updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.crtUid != null">
+        crt_uid = #{record.crtUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.updUid != null">
+        upd_uid = #{record.updUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cfgName != null">
+        cfg_name = #{record.cfgName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productCode != null">
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productName != null">
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hardVersion != null">
+        hard_version = #{record.hardVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partitionFormat != null">
+        partition_format = #{record.partitionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softName != null">
+        soft_name = #{record.softName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compileType != null">
+        compile_type = #{record.compileType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softVersion != null">
+        soft_version = #{record.softVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wireless != null">
+        wireless = #{record.wireless,jdbcType=BIT},
+      </if>
+      <if test="record.srLevelcode != null">
+        sr_levelcode = #{record.srLevelcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelId != null">
+        model_id = #{record.modelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stateTime != null">
+        state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.drivingCfgPower != null">
+        driving_cfg_power = #{record.drivingCfgPower,jdbcType=BIT},
+      </if>
+      <if test="record.pinCard != null">
+        pin_card = #{record.pinCard,jdbcType=TINYINT},
+      </if>
+      <if test="record.pinCardTime != null">
+        pin_card_time = #{record.pinCardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.installUrl != null">
+        install_url = #{record.installUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.vinUrl != null">
+        vin_url = #{record.vinUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_terminal
+    set id = #{record.id,jdbcType=INTEGER},
+      imei = #{record.imei,jdbcType=VARCHAR},
+      client_type = #{record.clientType,jdbcType=INTEGER},
+      vehicle_id = #{record.vehicleId,jdbcType=INTEGER},
+      level_code = #{record.levelCode,jdbcType=VARCHAR},
+      service_end_time = #{record.serviceEndTime,jdbcType=TIMESTAMP},
+      terminal_status = #{record.terminalStatus,jdbcType=INTEGER},
+      upd_status = #{record.updStatus,jdbcType=BIT},
+      online = #{record.online,jdbcType=BIT},
+      msisdn = #{record.msisdn,jdbcType=VARCHAR},
+      iccid = #{record.iccid,jdbcType=VARCHAR},
+      first_msg_time = #{record.firstMsgTime,jdbcType=TIMESTAMP},
+      last_msg_time = #{record.lastMsgTime,jdbcType=TIMESTAMP},
+      bar_code = #{record.barCode,jdbcType=VARCHAR},
+      crt_time = #{record.crtTime,jdbcType=TIMESTAMP},
+      upd_time = #{record.updTime,jdbcType=TIMESTAMP},
+      crt_uid = #{record.crtUid,jdbcType=INTEGER},
+      upd_uid = #{record.updUid,jdbcType=INTEGER},
+      cfg_name = #{record.cfgName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      hard_version = #{record.hardVersion,jdbcType=VARCHAR},
+      partition_format = #{record.partitionFormat,jdbcType=VARCHAR},
+      soft_name = #{record.softName,jdbcType=VARCHAR},
+      compile_type = #{record.compileType,jdbcType=VARCHAR},
+      soft_version = #{record.softVersion,jdbcType=VARCHAR},
+      wireless = #{record.wireless,jdbcType=BIT},
+      sr_levelcode = #{record.srLevelcode,jdbcType=VARCHAR},
+      model_id = #{record.modelId,jdbcType=INTEGER},
+      state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      driving_cfg_power = #{record.drivingCfgPower,jdbcType=BIT},
+      pin_card = #{record.pinCard,jdbcType=TINYINT},
+      pin_card_time = #{record.pinCardTime,jdbcType=TIMESTAMP},
+      install_url = #{record.installUrl,jdbcType=LONGVARCHAR},
+      vin_url = #{record.vinUrl,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_terminal
+    set id = #{record.id,jdbcType=INTEGER},
+      imei = #{record.imei,jdbcType=VARCHAR},
+      client_type = #{record.clientType,jdbcType=INTEGER},
+      vehicle_id = #{record.vehicleId,jdbcType=INTEGER},
+      level_code = #{record.levelCode,jdbcType=VARCHAR},
+      service_end_time = #{record.serviceEndTime,jdbcType=TIMESTAMP},
+      terminal_status = #{record.terminalStatus,jdbcType=INTEGER},
+      upd_status = #{record.updStatus,jdbcType=BIT},
+      online = #{record.online,jdbcType=BIT},
+      msisdn = #{record.msisdn,jdbcType=VARCHAR},
+      iccid = #{record.iccid,jdbcType=VARCHAR},
+      first_msg_time = #{record.firstMsgTime,jdbcType=TIMESTAMP},
+      last_msg_time = #{record.lastMsgTime,jdbcType=TIMESTAMP},
+      bar_code = #{record.barCode,jdbcType=VARCHAR},
+      crt_time = #{record.crtTime,jdbcType=TIMESTAMP},
+      upd_time = #{record.updTime,jdbcType=TIMESTAMP},
+      crt_uid = #{record.crtUid,jdbcType=INTEGER},
+      upd_uid = #{record.updUid,jdbcType=INTEGER},
+      cfg_name = #{record.cfgName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      hard_version = #{record.hardVersion,jdbcType=VARCHAR},
+      partition_format = #{record.partitionFormat,jdbcType=VARCHAR},
+      soft_name = #{record.softName,jdbcType=VARCHAR},
+      compile_type = #{record.compileType,jdbcType=VARCHAR},
+      soft_version = #{record.softVersion,jdbcType=VARCHAR},
+      wireless = #{record.wireless,jdbcType=BIT},
+      sr_levelcode = #{record.srLevelcode,jdbcType=VARCHAR},
+      model_id = #{record.modelId,jdbcType=INTEGER},
+      state_time = #{record.stateTime,jdbcType=TIMESTAMP},
+      driving_cfg_power = #{record.drivingCfgPower,jdbcType=BIT},
+      pin_card = #{record.pinCard,jdbcType=TINYINT},
+      pin_card_time = #{record.pinCardTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.gradle.entity.po.TerminalPOWithBLOBs">
+    update tb_terminal
+    <set>
+      <if test="imei != null">
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null">
+        client_type = #{clientType,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleId != null">
+        vehicle_id = #{vehicleId,jdbcType=INTEGER},
+      </if>
+      <if test="levelCode != null">
+        level_code = #{levelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEndTime != null">
+        service_end_time = #{serviceEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="terminalStatus != null">
+        terminal_status = #{terminalStatus,jdbcType=INTEGER},
+      </if>
+      <if test="updStatus != null">
+        upd_status = #{updStatus,jdbcType=BIT},
+      </if>
+      <if test="online != null">
+        online = #{online,jdbcType=BIT},
+      </if>
+      <if test="msisdn != null">
+        msisdn = #{msisdn,jdbcType=VARCHAR},
+      </if>
+      <if test="iccid != null">
+        iccid = #{iccid,jdbcType=VARCHAR},
+      </if>
+      <if test="firstMsgTime != null">
+        first_msg_time = #{firstMsgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastMsgTime != null">
+        last_msg_time = #{lastMsgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="barCode != null">
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="crtTime != null">
+        crt_time = #{crtTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updTime != null">
+        upd_time = #{updTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="crtUid != null">
+        crt_uid = #{crtUid,jdbcType=INTEGER},
+      </if>
+      <if test="updUid != null">
+        upd_uid = #{updUid,jdbcType=INTEGER},
+      </if>
+      <if test="cfgName != null">
+        cfg_name = #{cfgName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="hardVersion != null">
+        hard_version = #{hardVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="partitionFormat != null">
+        partition_format = #{partitionFormat,jdbcType=VARCHAR},
+      </if>
+      <if test="softName != null">
+        soft_name = #{softName,jdbcType=VARCHAR},
+      </if>
+      <if test="compileType != null">
+        compile_type = #{compileType,jdbcType=VARCHAR},
+      </if>
+      <if test="softVersion != null">
+        soft_version = #{softVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="wireless != null">
+        wireless = #{wireless,jdbcType=BIT},
+      </if>
+      <if test="srLevelcode != null">
+        sr_levelcode = #{srLevelcode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null">
+        model_id = #{modelId,jdbcType=INTEGER},
+      </if>
+      <if test="stateTime != null">
+        state_time = #{stateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="drivingCfgPower != null">
+        driving_cfg_power = #{drivingCfgPower,jdbcType=BIT},
+      </if>
+      <if test="pinCard != null">
+        pin_card = #{pinCard,jdbcType=TINYINT},
+      </if>
+      <if test="pinCardTime != null">
+        pin_card_time = #{pinCardTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="installUrl != null">
+        install_url = #{installUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="vinUrl != null">
+        vin_url = #{vinUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.demo.gradle.entity.po.TerminalPOWithBLOBs">
+    update tb_terminal
+    set imei = #{imei,jdbcType=VARCHAR},
+      client_type = #{clientType,jdbcType=INTEGER},
+      vehicle_id = #{vehicleId,jdbcType=INTEGER},
+      level_code = #{levelCode,jdbcType=VARCHAR},
+      service_end_time = #{serviceEndTime,jdbcType=TIMESTAMP},
+      terminal_status = #{terminalStatus,jdbcType=INTEGER},
+      upd_status = #{updStatus,jdbcType=BIT},
+      online = #{online,jdbcType=BIT},
+      msisdn = #{msisdn,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      first_msg_time = #{firstMsgTime,jdbcType=TIMESTAMP},
+      last_msg_time = #{lastMsgTime,jdbcType=TIMESTAMP},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      crt_time = #{crtTime,jdbcType=TIMESTAMP},
+      upd_time = #{updTime,jdbcType=TIMESTAMP},
+      crt_uid = #{crtUid,jdbcType=INTEGER},
+      upd_uid = #{updUid,jdbcType=INTEGER},
+      cfg_name = #{cfgName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      hard_version = #{hardVersion,jdbcType=VARCHAR},
+      partition_format = #{partitionFormat,jdbcType=VARCHAR},
+      soft_name = #{softName,jdbcType=VARCHAR},
+      compile_type = #{compileType,jdbcType=VARCHAR},
+      soft_version = #{softVersion,jdbcType=VARCHAR},
+      wireless = #{wireless,jdbcType=BIT},
+      sr_levelcode = #{srLevelcode,jdbcType=VARCHAR},
+      model_id = #{modelId,jdbcType=INTEGER},
+      state_time = #{stateTime,jdbcType=TIMESTAMP},
+      driving_cfg_power = #{drivingCfgPower,jdbcType=BIT},
+      pin_card = #{pinCard,jdbcType=TINYINT},
+      pin_card_time = #{pinCardTime,jdbcType=TIMESTAMP},
+      install_url = #{installUrl,jdbcType=LONGVARCHAR},
+      vin_url = #{vinUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.gradle.entity.po.TerminalPO">
+    update tb_terminal
+    set imei = #{imei,jdbcType=VARCHAR},
+      client_type = #{clientType,jdbcType=INTEGER},
+      vehicle_id = #{vehicleId,jdbcType=INTEGER},
+      level_code = #{levelCode,jdbcType=VARCHAR},
+      service_end_time = #{serviceEndTime,jdbcType=TIMESTAMP},
+      terminal_status = #{terminalStatus,jdbcType=INTEGER},
+      upd_status = #{updStatus,jdbcType=BIT},
+      online = #{online,jdbcType=BIT},
+      msisdn = #{msisdn,jdbcType=VARCHAR},
+      iccid = #{iccid,jdbcType=VARCHAR},
+      first_msg_time = #{firstMsgTime,jdbcType=TIMESTAMP},
+      last_msg_time = #{lastMsgTime,jdbcType=TIMESTAMP},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      crt_time = #{crtTime,jdbcType=TIMESTAMP},
+      upd_time = #{updTime,jdbcType=TIMESTAMP},
+      crt_uid = #{crtUid,jdbcType=INTEGER},
+      upd_uid = #{updUid,jdbcType=INTEGER},
+      cfg_name = #{cfgName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      hard_version = #{hardVersion,jdbcType=VARCHAR},
+      partition_format = #{partitionFormat,jdbcType=VARCHAR},
+      soft_name = #{softName,jdbcType=VARCHAR},
+      compile_type = #{compileType,jdbcType=VARCHAR},
+      soft_version = #{softVersion,jdbcType=VARCHAR},
+      wireless = #{wireless,jdbcType=BIT},
+      sr_levelcode = #{srLevelcode,jdbcType=VARCHAR},
+      model_id = #{modelId,jdbcType=INTEGER},
+      state_time = #{stateTime,jdbcType=TIMESTAMP},
+      driving_cfg_power = #{drivingCfgPower,jdbcType=BIT},
+      pin_card = #{pinCard,jdbcType=TINYINT},
+      pin_card_time = #{pinCardTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countAll" resultType ="java.lang.Long">
+    select count(*)
+    from tb_terminal
+    where 1=1
+  </select>
+
+  <select id="queryByPage" resultMap="BaseVOMap">
+    select
+    <include refid="Base_VO_List" />
+    from tb_terminal
+    limit
+    #{pageStart},
+    #{pageSize}
+  </select>
+
+  <select id="getAll" resultMap="BaseVOMap">
+    select
+    <include refid="Base_VO_List" />
+    from tb_terminal where 1=1
+  </select>
+</mapper>
