@@ -6,7 +6,9 @@ import com.demo.gradle.entity.po.TerminalPOWithBLOBs;
 import com.demo.gradle.entity.vo.TerminalVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface TerminalPOMapper {
     long countByExample(TerminalPOExample example);
@@ -42,4 +44,8 @@ public interface TerminalPOMapper {
     List<TerminalVO> queryByPage(@Param("pageStart") long pageStart,@Param("pageSize") int pageSize);
 
     List<TerminalVO> getAll();
+
+    int batchUpdateOnline(@Param("map") Map<String, Date> loginMap, boolean online);
+
+    void batchUpdateHeartBeat(@Param("map") Map<String, Date> heartBeatMap);
 }

@@ -830,11 +830,12 @@
   </update>
 
   <select id="countAll" resultType ="java.lang.Long">
-    select count(*)
+    select count(id)
     from tb_terminal
     where 1=1
   </select>
 
+  <!--获取设备表的分页数据-->
   <select id="queryByPage" resultMap="BaseVOMap">
     select
     <include refid="Base_VO_List" />
@@ -849,4 +850,56 @@
     <include refid="Base_VO_List" />
     from tb_terminal where 1=1
   </select>
+
+  <update id="batchUpdateOnline" parameterType="java.util.Map">
+    update tb_terminal t
+    left join tb_vehicle v
+    on t.vehicle_id = v.id
+    <set>
+      <if test="online == true">
+        t.online = 1,
+        v.online = 1,
+        t.last_msg_time = case
+        <foreach collection="map.keySet()" index="key" item="value">
+          when #{key} then #{value}
+        </foreach>
+        end,
+      </if>
+      <if test="online == false">
+        t.online = 0,
+        v.online = 0,
+      </if>
+      t.state_time = case
+      <foreach collection="map.entrySet()" index="key" item="value">
+        when #{key} then #{value}
+      </foreach>
+      end,
+      v.state_time = case
+      <foreach collection="map.entrySet()" index="key" item="value">
+        when #{key} then #{value}
+      </foreach>
+      end
+    </set>
+    where t.imei in (
+    <foreach collection="map.keySet()" item="key" close="" separator=",">
+      #{key}
+    </foreach>
+    )
+  </update>
+
+
+  <!--Mybatis批量处理1，2万数据都可以-->
+      <update id="batchUpdateHeartBeat" parameterType="java.util.Map" >
+          UPDATE tb_terminal
+          set last_msg_time = case
+          <foreach collection="map.entrySet()" item="value" index="key">
+              when #{key} then #{value}
+          </foreach>
+          end
+          where imei in (
+          <foreach collection="map.entrySet()" item="value" index="key" open="" close="" separator=",">
+              #{key}
+          </foreach>
+          )
+      </update>
 </mapper>

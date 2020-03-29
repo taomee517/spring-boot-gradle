@@ -8,7 +8,9 @@ import com.demo.gradle.service.ITerminalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TerminalServiceImpl implements ITerminalService {
@@ -36,5 +38,15 @@ public class TerminalServiceImpl implements ITerminalService {
         page.setCount(count);
         page.setData(terminals);
         return page;
+    }
+
+    @Override
+    public void batchHandleLogin(Map<String, Date> loginMap, boolean online) {
+        terminalPOMapper.batchUpdateOnline(loginMap, online);
+    }
+
+    @Override
+    public void batchUpdateHeartBeat(Map<String, Date> heartBeatMap) {
+        terminalPOMapper.batchUpdateHeartBeat(heartBeatMap);
     }
 }

@@ -16,6 +16,11 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.demo.gradle.entity.po
 
+# SQL日志配置
+logging:
+  level:
+    com.demo.gradle.entity.dao: DEBUG
+
 virus:
   info:
     province: Hubei

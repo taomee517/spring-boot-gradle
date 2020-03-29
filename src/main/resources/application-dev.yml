@@ -14,3 +14,6 @@ spring:
     minIdle: 1
     maxActive: 4
     maxWait: 60000
+
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
